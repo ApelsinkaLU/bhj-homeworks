@@ -1,22 +1,19 @@
-const checkBoxes = [...document.querySelectorAll('.interest__check')];
+const checkBoxes = Array.from(document.querySelectorAll('.interest__check'));
 
-checkBoxes.forEach((el) => {
-    el.addEventListener("click", () => {
+checkBoxes.forEach((item) => {
+    let parentCheck = item.closest('.interest');
+    const allInterests = Array.from(parentCheck.querySelectorAll('.interest__check'));
 
-        const closest = el.closest("label");
-
-        if (closest.nextElementSibling) {
-            const checkBox = [...closest.nextElementSibling.querySelectorAll('.interest__check')];
-
-            checkBox.forEach((i) => {
-                if (el.checked) {
-                    i.checked = true;
+    if (parentCheck.querySelector('.interest')) {
+        item.addEventListener('change', () => {
+            allInterests.forEach(el => {
+                if (item.checked) {
+                    el.checked = true;
                 } else {
-                    i.checked = false;
+                    el.checked = false;
                 }
             });
-        } else {
-            el.checked = false;
-        }
-    });
-})
+        });
+    }
+});
+ 
