@@ -11,26 +11,15 @@ const createTask = () => {
             <a href="#" class="task__remove">&times;</a>
           </div>
         `;
-        input.value = '';
 };
 
-input.addEventListener('keydown', (e) => {
-    if (e.key == 'Enter' && input.value != '') {
-        e.preventDefault();
-        createTask();
-    } else if (e.key == 'Enter' && input.value == '') {
-        e.preventDefault();
-        alert('Вы ничего не написали');
-    }
-});
 
 button.addEventListener('click', (e) => {
-    if (input.value != '') {
+    if (input.value.trim()) {
         e.preventDefault();
         createTask();
-    } else if (input.value == '') {
-        e.preventDefault();
-        alert('Вы ничего не написали');
+    } else {
+        alert('Поле пустое');
     }
 });
 

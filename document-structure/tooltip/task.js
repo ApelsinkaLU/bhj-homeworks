@@ -1,26 +1,24 @@
-const hasTooltip = [...document.querySelectorAll(".has-tooltip")],
-      toolTip = document.createElement("div");
-toolTip.classList.add("tooltip");
+let hasTooltip =  document.querySelectorAll('.has-tooltip');
 
-hasTooltip.forEach(el => {
-    el.onclick = function () {
-        el.appendChild(toolTip);
+let tooltip = document.createElement('div');
 
-        let closest = toolTip.closest(".has-tooltip"),
-            child = closest.querySelector(".tooltip");
+tooltip.classList.add('tooltip');
+hasTooltip[0].after(tooltip);
 
-        toolTip.textContent = el.getAttribute("title");
 
-        if (el.classList.contains("tooltip_active")) {
-            toolTip.classList.remove("tooltip_active");
+for (let elem of hasTooltip) {
+
+    elem.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        if (event.target.title === tooltip.textContent ) {
+            tooltip.classList.toggle('tooltip_active');
         } else {
-            toolTip.classList.add("tooltip_active");
-        };
+            tooltip.textContent = event.target.title;
+            tooltip.classList.add('tooltip_active');
+        }
 
-        el.style.position = "relative";
-        toolTip.style.position = "absolute";
-        let left = closest.getBoundingClientRect().left;
-        child.style.marginLeft = left + "px";
-        return false;
-    };
-});
+        tooltip.style.top = event.target.getBoundingClientRect().top + 22 + 'px';
+        tooltip.style.left = event.target.getBoundingClientRect().left + 0 + 'px';
+    });
+}
